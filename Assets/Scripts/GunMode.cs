@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IGunMode:MonoBehaviour
+public class GunMode:MonoBehaviour
 {
     [SerializeField] protected Transform fpsCam;
     [SerializeField] protected float interactionRange;

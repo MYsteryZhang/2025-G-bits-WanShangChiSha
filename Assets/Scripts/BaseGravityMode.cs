@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BaseGravityMode : IGunMode
+public class BaseGravityMode : GunMode
 {
     [SerializeField] protected float canGrabDistance;
 
