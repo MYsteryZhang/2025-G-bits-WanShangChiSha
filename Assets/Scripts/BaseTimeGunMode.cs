@@ -12,6 +12,12 @@ public class BaseTimeGunMode : GunMode
         //订阅Item.onTimerLessThanZero事件，当时停物体时停状态解除时，将可时停物体计数++
         Item.onTimeStoppedCanceled += PlusTimeStopCount;
     }
+
+    private void OnDestroy()
+    {
+        //取消事件订阅避免内存泄漏
+        Item.onTimeStoppedCanceled -= PlusTimeStopCount;
+    }
     protected override void HandlerInteraction()
     {
         RaycastHit hit;
