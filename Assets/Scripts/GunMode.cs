@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class GunMode:MonoBehaviour
+public class GunMode : MonoBehaviour
 {
     [SerializeField] protected Transform fpsCam;
     [SerializeField] protected float interactionRange;
-    [SerializeField] protected Transform grabPoint;
+
     protected virtual void HandlerInteraction() { }
     protected virtual void OnUpdate() { }
 

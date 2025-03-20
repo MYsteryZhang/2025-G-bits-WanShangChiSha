@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class BaseGravityMode : GunMode
+public class BaseGravityGunMode : GunMode
 {
     [SerializeField] protected float canGrabDistance;
+    [SerializeField] protected Transform grabPoint;
 
     private bool isGrabing = false;
     protected override void HandlerInteraction()
@@ -19,9 +20,9 @@ public class BaseGravityMode : GunMode
                 {
                     hit.transform.GetComponent<Item>().ChangeGravity();
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    //按键[R]使物品飞向玩家
+                    //按键[鼠标左键]使物品飞向玩家
                     hit.transform.GetComponent<Item>().MoveTo(transform);
                     
                 }
