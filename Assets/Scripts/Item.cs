@@ -51,7 +51,7 @@ public class Item:MonoBehaviour
         }
     }
 
-
+    #region Gravity Control
     public void ChangeGravity()
     {
         if(!isGravityChanged)
@@ -104,6 +104,9 @@ public class Item:MonoBehaviour
         Vector3 launchVelocity = velocityXZ + Vector3.up * velocityY;
         return launchVelocity;
     }
+    #endregion
+
+    #region Time Stop Control
     private void SetTimeStopTimer(float time)
     {
         timer = time;
@@ -155,4 +158,5 @@ public class Item:MonoBehaviour
     {
         transform.GetComponent<Renderer>().material = originMaterial;
     }
+    #endregion
 }
