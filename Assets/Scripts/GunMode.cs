@@ -9,9 +9,6 @@ public class GunMode : MonoBehaviour
 
 
     protected virtual void HandlerInteraction() { }
-    protected virtual void OnUpdate()
-    {
-    }
 
     protected virtual void Update()
     {

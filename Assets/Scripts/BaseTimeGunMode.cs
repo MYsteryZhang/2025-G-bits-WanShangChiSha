@@ -49,10 +49,6 @@ public class BaseTimeGunMode : GunMode
         timeStopCount++;
     }
 
-    protected override void OnUpdate()
-    {
-        base.OnUpdate();
-    }
 
     protected override void Update()
     {
