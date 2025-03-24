@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
+  pushSpeed: 40
   jumpHeight: 2
   gravity: -9.81
   groundCheck: {fileID: 1804787136}
@@ -377,7 +378,12 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  pushDuration: 0.5
+  groundPushForce: 8
+  airPushForce: 5
+  jumpPushBoost: 2
   characterController: {fileID: 99705394}
+  playerCamera: {fileID: 330585545}
 --- !u!1001 &161309177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -440,6 +446,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7658220749020036070, guid: d32892c82a841e34bb692140d685dcfc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1948173629}
+    - targetCorrespondingSourceObject: {fileID: 7658220749020036070, guid: d32892c82a841e34bb692140d685dcfc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1948173630}
   m_SourcePrefab: {fileID: 100100000, guid: d32892c82a841e34bb692140d685dcfc, type: 3}
 --- !u!1 &167762257
 GameObject:
@@ -1977,6 +1986,24 @@ MonoBehaviour:
   interactionRange: 40
   timeStopDuration: 5
   timeStopCount: 2
+--- !u!114 &1948173630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863585288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8341bccda2b17314891169cc82c598d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fpsCam: {fileID: 330585546}
+  interactionRange: 40
+  canGrabDistance: 3
+  grabPoint: {fileID: 686688767}
+  pushChargeTime: 1
+  player: {fileID: 99705393}
 --- !u!1 &2124742334
 GameObject:
   m_ObjectHideFlags: 0
