@@ -16,6 +16,7 @@ public class Item:MonoBehaviour
     private float timer;
     private bool isTimeStopped;
 
+    private bool isGrabbed = false;
     //定义时停结束事件和委托
     public delegate void OnTimeStoppedCanceled();
     public static event OnTimeStoppedCanceled onTimeStoppedCanceled;
@@ -159,4 +160,14 @@ public class Item:MonoBehaviour
         transform.GetComponent<Renderer>().material = originMaterial;
     }
     #endregion
+
+    public void SetGrab(bool _isGrabbed)
+    {
+        isGrabbed = _isGrabbed;
+    }
+
+    public bool IsGrabbed()
+    {
+        return isGrabbed;
+    }
 }
