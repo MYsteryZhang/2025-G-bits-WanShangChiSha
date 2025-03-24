@@ -17,6 +17,7 @@ public class Item:MonoBehaviour
     private bool isTimeStopped;
 
     private bool isGrabbed = false;
+
     //定义时停结束事件和委托
     public delegate void OnTimeStoppedCanceled();
     public static event OnTimeStoppedCanceled onTimeStoppedCanceled;
@@ -144,10 +145,10 @@ public class Item:MonoBehaviour
               onTimeStoppedCanceled.Invoke();
            }
          */
-        onTimeStoppedCanceled?.Invoke();
 
         //重置物体物理效果
         rb.isKinematic = false;
+        onTimeStoppedCanceled?.Invoke();
     }
 
     public void ChangeMaterial(Material material)
