@@ -7,7 +7,6 @@ public class Level2GravityGunMode : BaseGravityGunMode
     [SerializeField] private float pushForce = 10f;
     [SerializeField] GameObject player;
 
-    private RaycastHit hit;
 
     private void Start()
     {
@@ -16,6 +15,7 @@ public class Level2GravityGunMode : BaseGravityGunMode
     }
     protected override void HandlerInteraction()
     {
+        RaycastHit hit;
         //仅能与小型物体交互，可以改变物理重力，或"原力"抓取物品，准星瞄准到可互动物品时，物品高亮显示
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, interactionRange))
         {
@@ -32,11 +32,13 @@ public class Level2GravityGunMode : BaseGravityGunMode
                     //当物品在时停状态的时候，累积动量，当时停结束的时候，执行AddForce
                     if (hit.transform.GetComponent<Item>().IsTimeStopped())
                     {
-                        StartCoroutine(PushItemWhenTimeStopCanceled());
+                        StartCoroutine(PushItemWhenTimeStopCanceled(hit));
                     }
                     else
                     {
-                        hit.transform.GetComponent<Rigidbody>().AddForce(fpsCam.transform.forward * pushForce, ForceMode.Impulse);
+                        Vector3 direction = hit.transform.position - fpsCam.transform.position;
+                        direction = Vector3.Normalize(direction);
+                        PushItem(hit, direction);
                     }
                 }
             }
@@ -46,15 +48,22 @@ public class Level2GravityGunMode : BaseGravityGunMode
 
     }
 
-    protected IEnumerator PushItemWhenTimeStopCanceled()
+    private void PushItem(RaycastHit hit, Vector3 _direction)
     {
+        hit.transform.GetComponent<Rigidbody>().AddForce(_direction * pushForce, ForceMode.Impulse);
+    }
+
+    protected IEnumerator PushItemWhenTimeStopCanceled(RaycastHit hit)
+    {
+        Vector3 direction = hit.transform.position - fpsCam.transform.position;
+        direction = Vector3.Normalize(direction);
         //当物体还在时停状态的时候通过yield return null暂停协程
         while (hit.transform.GetComponent<Item>().IsTimeStopped())
         {
             yield return null;
         }
         //当物体退出时停状态后，执行后面的逻辑
-        hit.transform.GetComponent<Rigidbody>().AddForce(fpsCam.transform.forward * pushForce, ForceMode.Impulse);
+        PushItem(hit, direction);
     }
 
     protected override void Update()
