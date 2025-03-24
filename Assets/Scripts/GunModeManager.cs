@@ -36,6 +36,8 @@ public class GunModeManager : MonoBehaviour
         SetGunMode(isGravityModeActive);
         GravityGunPrefab.SetActive(true);
         TimeGunPrefab.SetActive(false);
+
+        onGunModeChange += SwitchGunPrefab;
     }
 
     private void SetGunMode(bool isGravityMode)
@@ -76,7 +78,7 @@ public class GunModeManager : MonoBehaviour
     {
         isGravityModeActive = !isGravityModeActive;
         SetGunMode(isGravityModeActive);
-        SwitchGunPrefab(isGravityModeActive);
+        onGunModeChange?.Invoke();
     }
 
     private bool HasGravityAndTimeMode()
@@ -84,8 +86,8 @@ public class GunModeManager : MonoBehaviour
         return Gun.transform.GetComponent<BaseGravityGunMode>() != null && Gun.transform.GetComponent<BaseTimeGunMode>() != null;
     }
     
-    private void SwitchGunPrefab(bool _isGravityModeActive)
+    private void SwitchGunPrefab()
     {
-        TimeGunPrefab.SetActive(!_isGravityModeActive);
+        TimeGunPrefab.SetActive(!isGravityModeActive);
     }
 }
