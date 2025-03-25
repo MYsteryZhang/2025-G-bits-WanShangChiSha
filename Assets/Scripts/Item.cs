@@ -164,7 +164,7 @@ public class Item:MonoBehaviour
     }
     #endregion
 
-    public void SetGrab(bool _isGrabbed)
+    public void SetIsGrabbed(bool _isGrabbed)
     {
         isGrabbed = _isGrabbed;
     }
