@@ -18,10 +18,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
 
+    [Header("Camera")]
+    [SerializeField] private Transform cameraPivot;
+    [SerializeField] private float rotationSpeed = 5f;
+
     private Vector3 velocity;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool isPushing;
     private bool isPushUnlocked = false;
+    private bool isChangingGravity = false;
 
 
     void Update()
@@ -39,17 +44,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        // 重置垂直速度（当接触地面且下落时）
-        if (isGrounded && velocity.y < 0)
+        // 重置垂直速度（当接触地面且速度方向与重力相反时）
+        if (isGrounded && velocity.y * Mathf.Sign(gravity) <= 0)
         {
-            velocity.y = -2f; // 轻微向下力，确保紧贴地面
+            velocity.y = -2f * Mathf.Sign(gravity); // 轻微力确保紧贴地面
         }
 
         // 处理跳跃
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            // 根据重力方向调整跳跃速度
+            velocity.y = Mathf.Sqrt(jumpHeight * 2f * Mathf.Abs(gravity)) * -Mathf.Sign(gravity);
         }
+
 
         // 应用重力
         velocity.y += gravity * Time.deltaTime;
@@ -94,6 +101,36 @@ public class PlayerMovement : MonoBehaviour
 
         //天然支持多段异步操作（如位移结束后触发其他事件:置isPushing为false）
         isPushing = false;
+    }
+
+    public void ReverseGravity()
+    {
+        StartCoroutine(SmoothRotate(180f));
+    }
+
+    private IEnumerator SmoothRotate(float targetAngle)
+    {
+        //当改变重力逻辑未完成时禁止执行之后的逻辑
+        if(isChangingGravity) yield break;
+        gravity = -gravity;
+        isChangingGravity = true;
+
+        Quaternion startPlayerRotation = transform.rotation;
+        Quaternion targetPlayerRotation = startPlayerRotation * Quaternion.Euler(0, 0, targetAngle);
+
+        float timer = 0f;
+        float duration = 0.5f;
+
+        while (timer < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startPlayerRotation, targetPlayerRotation, timer / duration);
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetPlayerRotation;
+        isChangingGravity = false;
     }
 
     public void UnlockPushAbility()
