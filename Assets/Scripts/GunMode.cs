@@ -5,8 +5,8 @@ using UnityEngine.Animations;
 public class GunMode : MonoBehaviour
 {
     [SerializeField] protected Transform fpsCam;
-    [SerializeField] protected float interactionRange;
-    [SerializeField] protected float canGrabDistance;
+    [SerializeField] protected float interactionRange = 40f;
+    [SerializeField] protected float canGrabDistance = 3f;
     [SerializeField] protected Transform grabPoint;
 
     protected virtual void HandlerInteraction() { }

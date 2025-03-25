@@ -6,15 +6,15 @@ using UnityEngine.Rendering;
 
 public class Level2GravityGunMode : BaseGravityGunMode
 {
-    [SerializeField] private float pushForce = 10f;
-    [SerializeField] private float offsetFactor = 1.2f;//位移参数，控制位移偏量
+    [SerializeField] private float pushForce = 7f;
+    [SerializeField] private float offsetFactor = 6f;//位移参数，控制位移偏量
     [SerializeField] private int maxPushCounts = 7;
     [SerializeField] private GameObject forceArrowPrefab;
-    [SerializeField] GameObject player;
+    [SerializeField] protected GameObject player;
 
     private Vector3 finalForce = Vector3.zero;
 
-    private void Start()
+    protected virtual void Start()
     {
         //二段跳逻辑放在PlayerMovement中，当二级重力枪解锁的时候，解锁二段跳技能
         player.GetComponent<PlayerMovement>().UnlockPushAbility();
@@ -48,8 +48,7 @@ public class Level2GravityGunMode : BaseGravityGunMode
                     }
                 }
             }
-            else
-                return;
+          
         }
 
     }
