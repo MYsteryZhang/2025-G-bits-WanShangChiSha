@@ -13,7 +13,7 @@ public class Level2GravityGunMode : BaseGravityGunMode
     [SerializeField] GameObject player;
 
     private Vector3 finalForce = Vector3.zero;
-    private GameObject forceArrow;
+
     private void Start()
     {
         //二段跳逻辑放在PlayerMovement中，当二级重力枪解锁的时候，解锁二段跳技能
