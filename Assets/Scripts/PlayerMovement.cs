@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 12f;
-    [SerializeField] private float pushSpeed = 40f;
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private Transform groundCheck;
@@ -15,14 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float pushDuration = 0.3f;
     [SerializeField] private float groundPushForce = 8f;    // 地面推力
     [SerializeField] private float airPushForce = 5f;      // 空中推力
-    [SerializeField] private float jumpPushBoost = 2f;     // 跳跃时额外推力
 
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
+
     private Vector3 velocity;
     private bool isGrounded;
     private bool isPushing;
-    private Vector3 pushDirection;
     private bool isPushUnlocked = false;
 
 
@@ -30,11 +28,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // 地面检测
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        HandleMovement();
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isPushing && isPushUnlocked)
         {
             StartCoroutine(ApplyPush());
         }
+        HandleMovement();
     }
 
 
@@ -84,12 +82,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             pushDir = pushDir.normalized * airPushForce;
-        }
-
-        // 跳跃时额外垂直推力
-        if (Input.GetButton("Jump"))
-        {
-            pushDir.y += jumpPushBoost;
         }
 
         //使用while循环和yield return null，可以让位移在每一帧中逐步执行，直到累计时间超过pushDuration
