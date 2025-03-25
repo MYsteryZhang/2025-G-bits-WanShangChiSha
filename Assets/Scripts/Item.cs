@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Serialization;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class Item:MonoBehaviour
 
     [Header("Ê±Í£²Ù¿ØÏà¹Ø")]
     [SerializeField] private Material timeStoppedMaterial;
+    [HideInInspector]public GameObject Arrow;
     private Material originMaterial;
     private float timer;
     private bool isTimeStopped;

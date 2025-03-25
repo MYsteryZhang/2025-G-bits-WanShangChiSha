@@ -69,19 +69,19 @@ public class Level2GravityGunMode : BaseGravityGunMode
         finalForce += direction * pushForce;
         maxPushCounts--;
 
-        if (forceArrow == null)
+        if (hit.transform.GetComponent<Item>().Arrow == null)
         {
             //finalForce.normalized * pushForce / offsetFactor使每次叠加更大的力时，使箭头向力的方向进行位移偏量，避免箭头穿模物体
-            forceArrow = Instantiate(forceArrowPrefab, hit.transform.position + finalForce / offsetFactor, Quaternion.identity);
+            hit.transform.GetComponent<Item>().Arrow = Instantiate(forceArrowPrefab, hit.transform.position + finalForce / offsetFactor, Quaternion.identity);
         }
         else 
         {
             //每次施加力都重置力的指示方向
-            Destroy(forceArrow);
-            forceArrow = Instantiate(forceArrowPrefab, hit.transform.position + finalForce / offsetFactor, Quaternion.identity);
+            Destroy(hit.transform.GetComponent<Item>().Arrow);
+            hit.transform.GetComponent<Item>().Arrow = Instantiate(forceArrowPrefab, hit.transform.position + finalForce / offsetFactor, Quaternion.identity);
         }
 
-        forceArrow.GetComponent<ForceArrow>().Initialize(finalForce);
+        hit.transform.GetComponent<Item>().Arrow.GetComponent<ForceArrow>().Initialize(finalForce);
 
         //当物体还在时停状态的时候通过yield return null暂停协程
         while (hit.transform.GetComponent<Item>().IsTimeStopped())
@@ -93,7 +93,7 @@ public class Level2GravityGunMode : BaseGravityGunMode
         PushItem(hit, direction);
         finalForce = Vector3.zero;
         maxPushCounts++;
-        Destroy(forceArrow);
+        Destroy(hit.transform.GetComponent<Item>().Arrow);
     }
 
     protected override void Update()
