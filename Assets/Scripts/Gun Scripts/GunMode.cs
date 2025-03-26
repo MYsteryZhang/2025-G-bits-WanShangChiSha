@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -27,18 +29,22 @@ public class GunMode : MonoBehaviour
                 //将物品设为重力枪的子物体，并禁用物体的物理效果
                 hit.transform.GetComponent<Rigidbody>().isKinematic = true;
                 hit.transform.SetParent(transform);
-
                 hit.transform.position = grabPoint.position;
                 return;
             }
             //如果正在抓取物品，再按[E]放下物品
             if (hit.transform.GetComponent<Item>().IsGrabbed())
             {
-                hit.transform.GetComponent<Item>().SetIsGrabbed(false);
-                hit.transform.GetComponent<Rigidbody>().isKinematic = false;
-                hit.transform.SetParent(null);
+                StartCoroutine(PutDownItem(hit));
             }
         }
     }
 
+    private static IEnumerator PutDownItem(RaycastHit hit)
+    {
+        hit.transform.GetComponent<Rigidbody>().isKinematic = false;
+        hit.transform.GetComponent<Item>().SetIsGrabbed(false);
+        yield return new WaitForSeconds(.2f);
+        hit.transform.SetParent(null);
+    }
 }
