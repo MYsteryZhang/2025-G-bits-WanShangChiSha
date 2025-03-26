@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Item:MonoBehaviour
 {
-    [Header("ÖØÁ¦²Ù¿ØÏà¹Ø")]
+    [Header("é‡åŠ›æ“æ§ç›¸å…³")]
     [SerializeField] private float launchAngle = 45f;
     private Rigidbody rb;
     private bool isGravityChanged = false;
 
 
-    [Header("Ê±Í£²Ù¿ØÏà¹Ø")]
+    [Header("æ—¶åœæ“æ§ç›¸å…³")]
     [SerializeField] private Material timeStoppedMaterial;
     [HideInInspector]public GameObject Arrow;
     private Material originMaterial;
@@ -20,7 +20,7 @@ public class Item:MonoBehaviour
 
     private bool isGrabbed = false;
 
-    //¶¨ÒåÊ±Í£½áÊøÊÂ¼şºÍÎ¯ÍĞ
+    //å®šä¹‰æ—¶åœç»“æŸäº‹ä»¶å’Œå§”æ‰˜
     public delegate void OnTimeStoppedCanceled();
     public static event OnTimeStoppedCanceled onTimeStoppedCanceled;
 
@@ -35,11 +35,11 @@ public class Item:MonoBehaviour
     {
         if (isTimeStopped)
         {
-            //µ±Ê±Í£Ê±£¬Ê±Í£¼ÆÊıÆ÷¿ªÊ¼¼ÆÊı
+            //å½“æ—¶åœæ—¶ï¼Œæ—¶åœè®¡æ•°å™¨å¼€å§‹è®¡æ•°
            timer -= Time.deltaTime;
             if(timer < 0)
             {
-                //¼ÆÊıÊ±¼äµ½Ê±£¬½â³ıÎïÌåÊ±Í£×´Ì¬
+                //è®¡æ•°æ—¶é—´åˆ°æ—¶ï¼Œè§£é™¤ç‰©ä½“æ—¶åœçŠ¶æ€
                 CancelTimeStop();
                 isTimeStopped = false;
             }
@@ -49,7 +49,7 @@ public class Item:MonoBehaviour
     {
         if (isGravityChanged)
         {
-            // ¼ÆËã·´ÏòÖØÁ¦£ºÁ¦ = ÖÊÁ¿ * ·´ÏòÖØÁ¦¼ÓËÙ¶È
+            // è®¡ç®—åå‘é‡åŠ›ï¼šåŠ› = è´¨é‡ * åå‘é‡åŠ›åŠ é€Ÿåº¦
             Vector3 reverseGravity = Physics.gravity * -1f * rb.mass;
             rb.AddForce(reverseGravity, ForceMode.Force);
         }
@@ -60,7 +60,7 @@ public class Item:MonoBehaviour
     {
         if(!isGravityChanged)
         {
-            //¸Ä±äÖØÁ¦
+            //æ”¹å˜é‡åŠ›
             rb.useGravity = false;
             isGravityChanged = true;
         }
@@ -73,7 +73,7 @@ public class Item:MonoBehaviour
 
     public void MoveTo(Transform destination)
     {
-        //Èç¹û´¦ÓÚ·´×ªÖØÁ¦×´Ì¬£¬ÔòÖØÖÃÖØÁ¦ÎªÕı³£×´Ì¬
+        //å¦‚æœå¤„äºåè½¬é‡åŠ›çŠ¶æ€ï¼Œåˆ™é‡ç½®é‡åŠ›ä¸ºæ­£å¸¸çŠ¶æ€
         if (isGravityChanged)
         {
             isGravityChanged = false;
@@ -81,14 +81,14 @@ public class Item:MonoBehaviour
         }
         Vector3 launchVelocity = CalculateLaunchVelocity(destination);
 
-        //ForceMode.VelocityChangeË²¼ä¸Ä±äËÙ¶È(ºöÂÔÖÊÁ¿£¬Ö±½ÓĞŞ¸ÄËÙ¶È)
+        //ForceMode.VelocityChangeç¬é—´æ”¹å˜é€Ÿåº¦(å¿½ç•¥è´¨é‡ï¼Œç›´æ¥ä¿®æ”¹é€Ÿåº¦)
         rb.AddForce(launchVelocity, ForceMode.VelocityChange);
     }
    
 
     private Vector3 CalculateLaunchVelocity(Transform destination)
     {
-        //ÎªÊ¹ÎïÌå½øĞĞĞ±Å×ÔË¶¯ºóÂäµãÎªdestination£¬Í¨¹ıÎïÀí¹«Ê½¼ÆËãËùĞèµÄlaunchVelocity
+        //ä¸ºä½¿ç‰©ä½“è¿›è¡Œæ–œæŠ›è¿åŠ¨åè½ç‚¹ä¸ºdestinationï¼Œé€šè¿‡ç‰©ç†å…¬å¼è®¡ç®—æ‰€éœ€çš„launchVelocity
         Vector3 displacement = destination.position - transform.position;
         float horizontalDistance = new Vector3(displacement.x, 0, displacement.z).magnitude;
         float verticalDistance = displacement.y;
@@ -96,12 +96,12 @@ public class Item:MonoBehaviour
         float gravity = Mathf.Abs(Physics.gravity.y);
         float angle = launchAngle * Mathf.Deg2Rad;
 
-        // ¼ÆËã³õËÙ¶È
+        // è®¡ç®—åˆé€Ÿåº¦
         float numerator = gravity * horizontalDistance * horizontalDistance;
         float denominator = 2 * Mathf.Pow(Mathf.Cos(angle), 2) * (horizontalDistance * Mathf.Tan(angle) - verticalDistance);
         float initialSpeed = Mathf.Sqrt(numerator / denominator);
 
-        // ·Ö½âËÙ¶È·½Ïò
+        // åˆ†è§£é€Ÿåº¦æ–¹å‘
         Vector3 horizontalDir = new Vector3(displacement.x, 0, displacement.z).normalized;
         Vector3 velocityXZ = horizontalDir * initialSpeed * Mathf.Cos(angle);
         float velocityY = initialSpeed * Mathf.Sin(angle);
@@ -123,32 +123,32 @@ public class Item:MonoBehaviour
     
     public void TimeStop(float time)
     {
-        //¸Ä±ä²ÄÖÊ
+        //æ”¹å˜æè´¨
         ChangeMaterial(timeStoppedMaterial);
-        //ÉèÖÃ¼ÆÊıÆ÷£¬Í¬Ê±½«ÎïÌåÖÃÎªÒÑÊ±Í£×´Ì¬
+        //è®¾ç½®è®¡æ•°å™¨ï¼ŒåŒæ—¶å°†ç‰©ä½“ç½®ä¸ºå·²æ—¶åœçŠ¶æ€
         SetTimeStopTimer(time);
         isTimeStopped = true;
 
-        //½ûÓÃÎïÌåÎïÀíĞ§¹û
+        //ç¦ç”¨ç‰©ä½“ç‰©ç†æ•ˆæœ
         rb.isKinematic = true;
     }
 
     public void CancelTimeStop()
     {
-        //ÖØÖÃÎïÌå²ÄÖÊ
+        //é‡ç½®ç‰©ä½“æè´¨
         ResetMaterial();
         isTimeStopped = false;
 
-        /*µ±ÊÂ¼ş²»Îª¿ÕÊ±£¬ÏìÓ¦º¯Êıµ÷ÓÃ
-         * (¼´ÔÚBaseTimeGunModeÀï¶©ÔÄÁËonTimeStoppedCanceledÊÂ¼ş£¬µ±ÊÂ¼ş²»Îª¿ÕÊ±£¬µ÷ÓÃ¶©ÔÄÁËÕâ¸öÊÂ¼şµÄº¯Êı£¬¼´PlusTimeStopCount())
-         * "?."µÈĞ§´«Í³Ğ´·¨£º
+        /*å½“äº‹ä»¶ä¸ä¸ºç©ºæ—¶ï¼Œå“åº”å‡½æ•°è°ƒç”¨
+         * (å³åœ¨BaseTimeGunModeé‡Œè®¢é˜…äº†onTimeStoppedCanceledäº‹ä»¶ï¼Œå½“äº‹ä»¶ä¸ä¸ºç©ºæ—¶ï¼Œè°ƒç”¨è®¢é˜…äº†è¿™ä¸ªäº‹ä»¶çš„å‡½æ•°ï¼Œå³PlusTimeStopCount())
+         * "?."ç­‰æ•ˆä¼ ç»Ÿå†™æ³•ï¼š
          * if (onTimeStoppedCanceled != null) 
          * {
               onTimeStoppedCanceled.Invoke();
            }
          */
 
-        //ÖØÖÃÎïÌåÎïÀíĞ§¹û
+        //é‡ç½®ç‰©ä½“ç‰©ç†æ•ˆæœ
         rb.isKinematic = false;
         onTimeStoppedCanceled?.Invoke();
     }
