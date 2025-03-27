@@ -14,6 +14,7 @@ public class GunModeManager : MonoBehaviour
     private BaseTimeGunMode _currentTimeGunModeScript;
 
     private bool isGravityModeActive = true;
+    private bool canSwitchMode = false;
 
     public delegate void OnGunModeChanged();
     public static event OnGunModeChanged onGunModeChange;
@@ -31,8 +32,9 @@ public class GunModeManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
+    public void ActiveSwitchFunction()
     {
+        canSwitchMode = true;
         SetGunMode(isGravityModeActive);
         GravityGunPrefab.SetActive(true);
         TimeGunPrefab.SetActive(false);
@@ -56,7 +58,7 @@ public class GunModeManager : MonoBehaviour
     private void Update()
     {
         //当玩家按下右键时，禁用当前模式脚本，启用另一模式脚本
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetKeyDown(KeyCode.Mouse1) && canSwitchMode)
         {
             //只有当且仅当枪械同时拥有两个模式时才能进行模式切换
             if(HasGravityAndTimeMode())
@@ -65,7 +67,7 @@ public class GunModeManager : MonoBehaviour
             }
         }
         //当松开右键时切换回原来的模式
-        if (Input.GetKeyUp(KeyCode.Mouse1))
+        if (Input.GetKeyUp(KeyCode.Mouse1) && canSwitchMode)
         {
             if (HasGravityAndTimeMode())
             {
