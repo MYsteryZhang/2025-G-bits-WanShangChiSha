@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 859526597321770304}
   - component: {fileID: 6594993623266132412}
   - component: {fileID: 6089688855403545386}
+  - component: {fileID: 2887673652408026451}
   m_Layer: 0
   m_Name: TestSmallCube
   m_TagString: Small Item
@@ -152,3 +153,16 @@ MonoBehaviour:
   launchAngle: 45
   timeStoppedMaterial: {fileID: 2100000, guid: 475d3494915a2ff489cc83b0eb0c7664, type: 2}
   Arrow: {fileID: 0}
+--- !u!114 &2887673652408026451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832400173166272086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3367c736f63f54d85f84b8e630ee2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallSpeedThreshold: 2
