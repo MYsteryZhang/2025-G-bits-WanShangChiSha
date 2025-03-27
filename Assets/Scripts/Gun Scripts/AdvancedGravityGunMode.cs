@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.ProBuilder;
 using UnityEngine.Rendering;
 
-public class Level2GravityGunMode : BaseGravityGunMode
+public class AdvancedGravityGunMode : BaseGravityGunMode
 {
     [SerializeField] private float pushForce = 7f;
     [SerializeField] private float offsetFactor = 6f;//位移参数，控制位移偏量
@@ -13,7 +13,15 @@ public class Level2GravityGunMode : BaseGravityGunMode
     [SerializeField] protected GameObject player;
 
     private Vector3 finalForce = Vector3.zero;
+    private bool isChangePlayerGravityUnlocked = false;
 
+    public void SetDefaultValue(GameObject _forceArrowPrefab, GameObject _player, Transform _fpsCam, Transform _grabPoint)
+    {
+        forceArrowPrefab = _forceArrowPrefab;
+        player = _player;
+        fpsCam = _fpsCam;
+        grabPoint = _grabPoint;
+    }
     protected virtual void Start()
     {
         //二段跳逻辑放在PlayerMovement中，当二级重力枪解锁的时候，解锁二段跳技能
@@ -98,5 +106,15 @@ public class Level2GravityGunMode : BaseGravityGunMode
     protected override void Update()
     {
         base.Update();
+        ReverseGravity();
+    }
+
+    private void ReverseGravity()
+    {
+        //按G反转玩家重力
+        if (Input.GetKeyDown(KeyCode.G) && isChangePlayerGravityUnlocked)
+        {
+            player.GetComponent<PlayerMovement>().ReverseGravity();
+        }
     }
 }

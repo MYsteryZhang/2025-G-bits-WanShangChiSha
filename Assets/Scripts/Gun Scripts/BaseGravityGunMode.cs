@@ -3,8 +3,6 @@ using UnityEngine;
 public class BaseGravityGunMode : GunMode
 {
 
-
-
     protected override void HandlerInteraction()
     {
         RaycastHit hit;

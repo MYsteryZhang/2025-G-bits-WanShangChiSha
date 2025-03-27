@@ -44,7 +44,10 @@ public class GunMode : MonoBehaviour
     {
         hit.transform.GetComponent<Rigidbody>().isKinematic = false;
         hit.transform.GetComponent<Item>().SetIsGrabbed(false);
+        //等待一段时间再将物品的父节点设为Null，使玩家松开物品的时候，物品的掉落更符合直觉
         yield return new WaitForSeconds(.2f);
         hit.transform.SetParent(null);
+
+
     }
 }
