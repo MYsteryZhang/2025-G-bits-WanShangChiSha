@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
         HandleInteractionInput();
     }
 
+    public Interactable GetCurrentInteractable()
+    {
+        return currentInteractable;
+    }
     private void HandleInteractionInput()
     {
         if (Input.GetKeyDown(interactKey) && currentInteractable != null)
