@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogs:
   - dialogueID: GameStart_ControlPrompt
-    title: 
+    title: Unknown
     content:
     - "\u6309WASD\u64CD\u63A7\u79FB\u52A8"
     - "\u8F6C\u52A8\u9F20\u6807\u79FB\u52A8\u89C6\u89D2"
     icon: {fileID: 0}
     hasConfirmButton: 0
-  - dialogueID: 
-    title: 
-    content: []
+  - dialogueID: GetGravityGun_Prompt
+    title: Unknown
+    content:
+    - "\u73B0\u5728\u4F60\u62FF\u5230\u4E86\u91CD\u529B\u67AA\uFF0C\u8BD5\u7740\u7784\u51C6\u9644\u8FD1\u7684\u65B9\u5757\u5C06\u5B83\u62FD\u8FC7\u6765\u5427"
+    - "\u91CD\u529B\u67AA\u8FD8\u53EF\u4EE5\u6293\u53D6\u7269\u54C1\uFF0C\u5BF9\u7269\u54C1\u6309E\u8BD5\u8BD5"
     icon: {fileID: 0}
     hasConfirmButton: 0
