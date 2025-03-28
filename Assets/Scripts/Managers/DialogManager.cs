@@ -78,11 +78,11 @@ public class DialogManager : MonoBehaviour
         //当队列数大于0时，继续显示接下来的对话
         while(sentences.Count > 0)
         {
+            Instance.contentText.text = "";
             yield return new WaitForSeconds(1f);
             string sentence = sentences.Dequeue();
 
             //逐个显示sentence中的字符
-            Instance.contentText.text = "";
             foreach (char letter in sentence.ToCharArray())
             {
                 Instance.contentText.text += letter;
