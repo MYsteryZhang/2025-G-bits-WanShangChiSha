@@ -18,10 +18,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
 
-    [Header("Camera")]
-    [SerializeField] private Transform cameraPivot;
-    [SerializeField] private float rotationSpeed = 5f;
-
     private Vector3 velocity;
     public bool isGrounded;
     private bool isPushing;
