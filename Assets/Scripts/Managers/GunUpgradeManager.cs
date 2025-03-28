@@ -25,6 +25,7 @@ public class GunUpgradeManager : MonoBehaviour
     public void FirstGetGravityGun()
     {
         gravityGun.SetActive(true);
+        DialogManager.Instance.StartDialogue("GetGravityGun_Prompt", 5f);
     }
 
     public void FirstGetTimeGun()
