@@ -4,7 +4,6 @@ using UnityEngine;
 public class ForceArrow : MonoBehaviour
 {
     [SerializeField] private float maxForceFactor = 5f; // 控制箭头长度的参数
-    [SerializeField] private float destroyDelay = 2f; // 箭头消失延迟
     [SerializeField] private float maxScale = 0.8f;
 
     private Vector3 forceDirection;
