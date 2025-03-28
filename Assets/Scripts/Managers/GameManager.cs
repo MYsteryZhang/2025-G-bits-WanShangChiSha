@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public GameState State;
 
     public static event Action<GameState> OnGameStateChanged;
+
+    private bool isGamePaused = false;
+
     void Awake()
     {
         if (Instance == null)
@@ -37,12 +40,39 @@ public class GameManager : MonoBehaviour
                 HandleGameStart();
                 break;
             case GameState.Pause:
+                HandlePause();
                 break;
             case GameState.InGame:
                 break;
         }
 
         OnGameStateChanged?.Invoke(newState);
+    }
+
+    private void HandlePause()
+    {
+        PauseGame();
+    }
+
+    public void PauseGame()
+    {
+        if (!isGamePaused)
+        {
+            isGamePaused = true;
+            Time.timeScale = isGamePaused ? 0 : 1; // ÔÝÍ£ÓÎÏ·Âß¼­  
+            AudioListener.pause = isGamePaused;     // ÔÝÍ£ÉùÒô  
+            Cursor.lockState = CursorLockMode.Confined;
+            UIManager.Instance.TogglePauseMenu(isGamePaused);
+        }
+        else
+        {
+            isGamePaused = false;
+            Time.timeScale = isGamePaused ? 0 : 1;
+            AudioListener.pause = isGamePaused;
+            UIManager.Instance.TogglePauseMenu(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            UpdateGameState(GameState.InGame);
+        }
     }
 
     private void HandleGameStart()
