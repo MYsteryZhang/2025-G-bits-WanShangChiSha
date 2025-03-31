@@ -36,6 +36,7 @@ public class BaseTimeGunMode : GunMode
                 //当射线检测物品是Small Item 且物体没有被时停 且当前可时停物体大于0 且物品不被抓取时，时停当前物体
                 if(timeStopCount > 0 && hit.transform.CompareTag("Small Item") && !hit.transform.GetComponent<Item>().IsTimeStopped() && !hit.transform.GetComponent<Item>().IsGrabbed())
                 {
+                    //伪代码:SoundManager.Instance.PlaySFX("TimeStopped")
                     timeStopCount--;
                     hit.transform.GetComponent<Item>().TimeStop(timeStopDuration);
                 }

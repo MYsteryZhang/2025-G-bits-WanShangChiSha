@@ -27,8 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // 地面检测
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isPushing && isPushUnlocked)
         {
             StartCoroutine(ApplyPush());
@@ -40,20 +39,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        // 重置垂直速度（当接触地面且速度方向与重力相反时）
-        if (isGrounded && velocity.y * Mathf.Sign(gravity) <= 0)
+        // 地面检测
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        // 重置垂直速度（当接触地面且速度方向与重力相同时）
+        if (isGrounded && -velocity.y * Mathf.Sign(gravity) <= 0)
         {
-            velocity.y = -2f * Mathf.Sign(gravity); // 轻微力确保紧贴地面
+            velocity.y = 2f * Mathf.Sign(gravity); // 轻微力确保紧贴地面
         }
 
         // 处理跳跃
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            Debug.Log("jump");
             // 根据重力方向调整跳跃速度
             velocity.y = Mathf.Sqrt(jumpHeight * 2f * Mathf.Abs(gravity)) * -Mathf.Sign(gravity);
         }
 
-
+         
         // 应用重力
         velocity.y += gravity * Time.deltaTime;
         float x = Input.GetAxis("Horizontal");

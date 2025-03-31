@@ -26,11 +26,13 @@ public class BaseGravityGunMode : GunMode
         if (Input.GetKeyDown(KeyCode.Q))
         {
             hit.transform.GetComponent<Item>().ChangeGravity();
+            //伪代码:FXManager.Instance.PlayFX("ChangeGravityFX", transform.position);
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             //按键[鼠标左键]使物品飞向玩家
             hit.transform.GetComponent<Item>().MoveTo(transform);
+            //伪代码:FXManager.Instance.PlayFX("MoveToFX", transform.position);
 
         }
         GrabLogic(hit);

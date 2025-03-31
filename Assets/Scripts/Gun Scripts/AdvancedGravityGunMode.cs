@@ -13,7 +13,7 @@ public class AdvancedGravityGunMode : BaseGravityGunMode
     [SerializeField] protected GameObject player;
 
     private Vector3 finalForce = Vector3.zero;
-    private bool isChangePlayerGravityUnlocked = false;
+    private bool isChangePlayerGravityUnlocked = true;
 
     public void SetDefaultValue(GameObject _forceArrowPrefab, GameObject _player, Transform _fpsCam, Transform _grabPoint)
     {
@@ -42,7 +42,7 @@ public class AdvancedGravityGunMode : BaseGravityGunMode
             {
                 if (Input.GetKeyDown(KeyCode.T))
                 {
-
+                    //伪代码:SoundManager.Instance.PlaySFX("PushSkill");
                     //当物品在时停状态的时候，累积动量，当时停结束的时候，执行AddForce
                     if (hit.transform.GetComponent<Item>().IsTimeStopped() && maxPushCounts > 0)
                     {
